@@ -1,0 +1,8 @@
+[project]
+name = "campus-mental-health"
+version = "0.1.0"
+description = "Campus mental health Flask demo"
+requires-python = ">=3.9"
+dependencies = [
+    "Flask==3.1.3"
+]
