@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>登录入口 - 校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+       <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main class="login-page">
+        <section class="login-panel">
+            <div class="login-info">
+                <p class="tag">Secure Demo Login</p>
+                <h1>选择你的系统入口</h1>
+                <p>
+                    这是演示版登录页，不连接真实数据库，也不会保存任何真实个人信息。
+                    不同账号会进入不同角色页面。
+                </p>
+
+                <div class="demo-accounts">
+                    <h3>演示账号</h3>
+                    <p><strong>学生：</strong>student / 123456</p>
+                    <p><strong>心理咨询师：</strong>counselor / 123456</p>
+                    <p><strong>系统管理员：</strong>admin / 123456</p>
+                </div>
+            </div>
+
+            <form class="login-form" method="POST">
+                <h2>登录系统</h2>
+
+                {% if error %}
+                    <div class="error-box">{{ error }}</div>
+                {% endif %}
+
+                <label>用户名</label>
+                <input type="text" name="username" placeholder="例如：student" required>
+
+                <label>密码</label>
+                <input type="password" name="password" placeholder="请输入密码" required>
+
+                <button type="submit">进入系统</button>
+
+                <p class="login-note">
+                    演示版不会进行真实身份验证，仅用于展示系统流程。
+                </p>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

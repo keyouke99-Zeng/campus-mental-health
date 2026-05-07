@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+       <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <p class="tag">Campus Mental Health AI Support Platform</p>
+                <h1>以情绪赋权，而非情绪监控</h1>
+                <p class="description">
+                    本系统是一个面向校园心理健康生态的 Web 管理后台与信息入口，
+                    连接学生、心理咨询师、管理员与 AI 辅助分析能力。
+                </p>
+
+                <div class="hero-buttons">
+                    <a class="btn primary" href="/login">进入系统</a>
+<a class="btn secondary" href="/settings">了解隐私保护</a>
+
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <h3>系统状态</h3>
+                <p><strong>网络连接：</strong>正常</p>
+                <p><strong>离线缓存：</strong>已启用</p>
+                <p><strong>数据保留周期：</strong>90 天</p>
+                <p><strong>匿名预警：</strong>开启</p>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>匿名风险预警</h3>
+                <p>
+                    管理端默认只显示匿名 ID 与风险等级，只有在授权后才可查看学生身份。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>学生手动修正优先</h3>
+                <p>
+                    学生可以修正 AI 生成的情绪判断，手动反馈优先于 AI 原始判断。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>场景级采集开关</h3>
+                <p>
+                    学生可独立关闭宿舍、图书馆、教学楼、校车等场景的情绪分析。
+                </p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

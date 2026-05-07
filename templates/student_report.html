@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>我的情绪周报 - 校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+        <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main class="student-page">
+
+        <section class="status-bar">
+            <span>学生端入口：已连接</span>
+            <span>本周报告：待确认</span>
+            <span>手动修正优先：开启</span>
+        </section>
+
+        <section class="page-title">
+            <p class="tag">My Weekly Emotional Report</p>
+            <h1>我的每周情绪周报</h1>
+            <p>
+                本页面展示 AI 生成的本周情绪记录。你可以修正 AI 判断、添加个人备注。
+                你的手动修改将覆盖 AI 的原始判断，并优先用于生成最终周报。
+            </p>
+        </section>
+
+        <section class="student-notice">
+            <h3>重要说明</h3>
+            <p>
+                本系统的目标是帮助你更好地理解自己的情绪变化，而不是对你进行监控。
+                AI 判断可能出错，你的自我反馈拥有更高优先级。
+            </p>
+        </section>
+
+        <section class="dashboard-card">
+            <h3>本周情绪记录</h3>
+            <p class="card-desc">
+                以下数据为演示数据。真实系统中，学生可以逐条修正情绪标签并添加备注。
+            </p>
+
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>AI 判断</th>
+                        <th>我的修正</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in weekly_report %}
+                    <tr>
+                        <td>{{ item.day }}</td>
+                        <td>
+                            <span class="emotion-badge">{{ item.ai_emotion }}</span>
+                        </td>
+                        <td>
+                            <select class="select-input">
+                                <option {% if item.student_emotion == "积极" %}selected{% endif %}>积极</option>
+                                <option {% if item.student_emotion == "平和" %}selected{% endif %}>平和</option>
+                                <option {% if item.student_emotion == "低落" %}selected{% endif %}>低落</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="note-input" value="{{ item.note }}">
+                        </td>
+                        <td>
+                            <button class="outline-btn" onclick="alert('演示版：修正已记录。真实系统中这里会保存到数据库。')">
+                                保存修正
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="submit-area">
+                <button class="primary-action" onclick="alert('演示版：本周情绪周报已确认提交。')">
+                    确认并提交本周报告
+                </button>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h3>场景级情绪分析开关</h3>
+                <p class="card-desc">
+                    你可以单独关闭某些校园场景中的 AI 情绪分析。关闭后不影响正常通行。
+                </p>
+
+                <div class="switch-list">
+                    {% for scene in scene_switches %}
+                    <div class="switch-row">
+                        <div>
+                            <strong>{{ scene.name }}</strong>
+                            <p>{{ scene.desc }}</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" {% if scene.enabled %}checked{% endif %}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>账户与数据权利</h3>
+                <p class="card-desc">
+                    你可以查看数据保留规则，也可以申请退出系统并删除个人数据。
+                </p>
+
+                <div class="data-policy">
+                    <p><strong>学生数据默认保留：</strong>90 天</p>
+                    <p><strong>毕业生数据删除：</strong>毕业后 30 天</p>
+                    <p><strong>人工修正优先级：</strong>高于 AI 原始判断</p>
+                    <p><strong>身份查看规则：</strong>默认匿名，授权后可追溯</p>
+                </div>
+
+                <button class="danger-action" onclick="confirm('演示版提示：真实系统中，这里会触发二次确认和数据删除流程。')">
+                    退出系统并删除我的所有数据
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

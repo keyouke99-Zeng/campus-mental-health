@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>管理端 Dashboard - 校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+        <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main class="dashboard-page">
+
+        <section class="status-bar">
+            <span>当前网络连接：正常</span>
+            <span>离线缓存模式：已启用</span>
+            <span>匿名风险预警：开启</span>
+        </section>
+
+        <section class="page-title">
+            <p class="tag">Counselor Dashboard</p>
+            <h1>心理咨询师工作台</h1>
+            <p>
+                该页面用于查看全校心理健康趋势、匿名风险预警和待处理干预任务。
+                当前所有数据均为演示数据，不包含真实学生信息。
+            </p>
+        </section>
+
+        <section class="stat-grid">
+            <div class="stat-card">
+                <p>覆盖学生数</p>
+                <h2>{{ stats.total_students }}</h2>
+                <span>演示样本总量</span>
+            </div>
+
+            <div class="stat-card danger">
+                <p>高风险预警</p>
+                <h2>{{ stats.high_risk }}</h2>
+                <span>本周新增</span>
+            </div>
+
+            <div class="stat-card">
+                <p>待处理干预</p>
+                <h2>{{ stats.pending_cases }}</h2>
+                <span>需要咨询师跟进</span>
+            </div>
+
+            <div class="stat-card">
+                <p>系统状态</p>
+                <h2>{{ stats.system_status }}</h2>
+                <span>缓存同步正常</span>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h3>本周风险趋势</h3>
+                <p class="card-desc">展示过去 7 天匿名风险预警数量变化。</p>
+
+                <div class="bar-chart">
+                    {% for item in trend_data %}
+                    <div class="bar-item">
+                        <div class="bar" style="height: {{ item.value * 16 }}px;"></div>
+                        <span>{{ item.day }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>全校情绪分布</h3>
+                <p class="card-desc">展示 AI 情绪标签的整体分布情况。</p>
+
+                <div class="emotion-list">
+                    {% for item in emotion_data %}
+                    <div class="emotion-row">
+                        <div class="emotion-info">
+                            <span>{{ item.label }}</span>
+                            <strong>{{ item.percent }}%</strong>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: {{ item.percent }}%;"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </section>
+
+        <section class="dashboard-card">
+            <div class="section-header">
+                <div>
+                    <h3>匿名风险预警列表</h3>
+                    <p class="card-desc">
+                        默认只显示匿名 ID、风险等级和触发原因。查看真实身份需要授权，并记录审计日志。
+                    </p>
+                </div>
+                <a class="small-btn" href="/risk">查看全部预警</a>
+            </div>
+
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>匿名 ID</th>
+                        <th>风险等级</th>
+                        <th>触发来源</th>
+                        <th>处理状态</th>
+                        <th>身份信息</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alert in risk_alerts %}
+                    <tr>
+                        <td>{{ alert.anonymous_id }}</td>
+                        <td>
+                            <span class="risk-level">{{ alert.level }}</span>
+                        </td>
+                        <td>{{ alert.source }}</td>
+                        <td>{{ alert.status }}</td>
+                        <td>
+                            <button class="outline-btn">申请查看身份</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>

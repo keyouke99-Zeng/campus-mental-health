@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>系统设置与帮助 - 校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+        <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main class="dashboard-page">
+
+        <section class="status-bar">
+            <span>管理员入口：已连接</span>
+            <span>数据生命周期：已启用</span>
+            <span>AI 审计日志：开启</span>
+        </section>
+
+        <section class="page-title">
+            <p class="tag">Settings & Help Center</p>
+            <h1>系统设置与帮助</h1>
+            <p>
+                本页面用于展示系统管理员可以配置和查看的核心内容，包括数据保留周期、
+                权限管理、AI 使用日志、离线缓存状态、系统公告以及帮助文档入口。
+            </p>
+        </section>
+
+        <section class="settings-grid">
+
+            <div class="dashboard-card">
+                <h3>数据生命周期设置</h3>
+                <p class="card-desc">
+                    系统应清晰展示学生数据的保留时间和自动删除规则。
+                </p>
+
+                <div class="setting-list">
+                    {% for item in system_settings %}
+                    <div class="setting-item">
+                        <div>
+                            <strong>{{ item.name }}</strong>
+                            <p>{{ item.desc }}</p>
+                        </div>
+                        <span>{{ item.value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>权限管理</h3>
+                <p class="card-desc">
+                    不同角色只能访问与自身职责相关的页面和数据。
+                </p>
+
+                <div class="permission-list">
+                    {% for role in permissions %}
+                    <div class="permission-item">
+                        <strong>{{ role.name }}</strong>
+                        <p>{{ role.access }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h3>AI 使用日志</h3>
+                <p class="card-desc">
+                    真实系统中，AI 生成风险预警、人工查看身份、学生修正记录都应可追溯。
+                </p>
+
+                <div class="audit-list">
+                    {% for log in ai_logs %}
+                    <div class="audit-item">
+                        <strong>{{ log.action }}</strong>
+                        <p>{{ log.time }} · {{ log.detail }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>系统公告</h3>
+                <p class="card-desc">
+                    管理员可以向学生和咨询师发布系统维护、政策更新和帮助提醒。
+                </p>
+
+                <div class="notice-list">
+                    {% for notice in notices %}
+                    <div class="notice-item">
+                        <strong>{{ notice.title }}</strong>
+                        <p>{{ notice.content }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <button class="primary-action" onclick="alert('演示版：这里以后可以做发布公告表单。')">
+                    发布新公告
+                </button>
+            </div>
+
+        </section>
+
+        <section class="dashboard-card">
+            <h3>帮助文档入口</h3>
+            <p class="card-desc">
+                第一版演示原型中，这些按钮只作为页面入口展示，不连接真实文件。
+            </p>
+
+            <div class="help-links">
+                <button onclick="alert('演示版：打开用户手册。')">用户手册</button>
+                <button onclick="alert('演示版：打开隐私协议。')">隐私协议</button>
+                <button onclick="alert('演示版：打开伦理框架。')">伦理框架</button>
+                <button onclick="alert('演示版：联系心理咨询中心。')">联系心理咨询中心</button>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

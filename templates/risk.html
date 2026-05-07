@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>风险预警管理 - 校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+       <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main class="dashboard-page">
+
+        <section class="status-bar">
+            <span>匿名预警：开启</span>
+            <span>身份查看：需授权</span>
+            <span>审计日志：自动记录</span>
+        </section>
+
+        <section class="page-title">
+            <p class="tag">Risk Management</p>
+            <h1>风险预警管理</h1>
+            <p>
+                本页面用于管理 AI 生成的匿名风险预警。咨询师默认只能看到匿名 ID、
+                风险等级和触发原因。若需要查看学生真实身份，必须发起授权申请，
+                并在系统中留下完整审计记录。
+            </p>
+        </section>
+
+        <section class="risk-filter-card">
+            <div>
+                <label>风险等级</label>
+                <select>
+                    <option>全部风险</option>
+                    <option>高风险</option>
+                    <option>中风险</option>
+                    <option>低风险</option>
+                </select>
+            </div>
+
+            <div>
+                <label>处理状态</label>
+                <select>
+                    <option>全部状态</option>
+                    <option>待处理</option>
+                    <option>观察中</option>
+                    <option>已分配咨询师</option>
+                    <option>已记录</option>
+                </select>
+            </div>
+
+            <div>
+                <label>时间范围</label>
+                <select>
+                    <option>本周</option>
+                    <option>近 30 天</option>
+                    <option>近 90 天</option>
+                </select>
+            </div>
+
+            <button onclick="alert('演示版：筛选功能仅展示 UI，不进行真实查询。')">
+                应用筛选
+            </button>
+        </section>
+
+        <section class="dashboard-card">
+            <div class="section-header">
+                <div>
+                    <h3>匿名风险预警列表</h3>
+                    <p class="card-desc">
+                        所有学生身份默认隐藏。点击“申请查看身份”后，真实系统中会进入授权审批流程。
+                    </p>
+                </div>
+            </div>
+
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>匿名 ID</th>
+                        <th>风险等级</th>
+                        <th>触发来源</th>
+                        <th>处理状态</th>
+                        <th>建议动作</th>
+                        <th>身份授权</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alert in risk_alerts %}
+                    <tr>
+                        <td>{{ alert.anonymous_id }}</td>
+                        <td>
+                            <span class="risk-level">{{ alert.level }}</span>
+                        </td>
+                        <td>{{ alert.source }}</td>
+                        <td>{{ alert.status }}</td>
+                        <td>
+                            {% if alert.level == "高风险" %}
+                                优先分配咨询师
+                            {% elif alert.level == "中风险" %}
+                                持续观察
+                            {% else %}
+                                记录趋势
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button class="outline-btn" onclick="alert('演示版：已提交查看身份申请，并写入审计日志。')">
+                                申请查看身份
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h3>干预流程看板</h3>
+                <p class="card-desc">
+                    展示高风险个案从预警到干预的处理状态。
+                </p>
+
+                <div class="intervention-list">
+                    {% for task in intervention_tasks %}
+                    <div class="intervention-item">
+                        <div>
+                            <strong>{{ task.title }}</strong>
+                            <p>{{ task.desc }}</p>
+                        </div>
+                        <span>{{ task.status }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>审计日志预览</h3>
+                <p class="card-desc">
+                    所有身份查看、授权申请和系统访问都会留下日志。
+                </p>
+
+                <div class="audit-list">
+                    {% for log in audit_logs %}
+                    <div class="audit-item">
+                        <strong>{{ log.action }}</strong>
+                        <p>{{ log.time }} · {{ log.operator }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

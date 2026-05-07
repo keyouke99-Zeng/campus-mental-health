@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>关于我们 / 联系我们 - 校园心理健康管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">校园心理健康管理系统</div>
+        <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录入口</a>
+    <a href="/dashboard">管理看板</a>
+    <a href="/risk">风险预警</a>
+    <a href="/student-report">我的周报</a>
+    <a href="/settings">系统设置</a>
+    <a href="/about">联系我们</a>
+</nav>
+
+    </header>
+
+    <main class="about-page">
+
+        <section class="page-title">
+            <p class="tag">About & Contact</p>
+            <h1>关于我们 / 联系我们</h1>
+            <p>
+                本页面用于介绍校园心理健康管理系统的项目背景、服务边界、
+                联系方式和紧急求助入口。当前内容均为演示原型文案。
+            </p>
+        </section>
+
+        <section class="about-grid">
+
+            <div class="dashboard-card">
+                <h3>项目背景</h3>
+                <p class="card-desc">
+                    本系统旨在为校园心理健康服务提供一个更温和、可解释、可审计的数字化入口。
+                    它不以监控学生为目标，而是希望帮助学生理解自己的情绪变化，
+                    并帮助专业咨询师更及时地发现需要关注的匿名风险信号。
+                </p>
+
+                <div class="principle-list">
+                    <div class="principle-item">
+                        <strong>学生自主权</strong>
+                        <p>学生可以查看、修正和补充自己的情绪记录。</p>
+                    </div>
+
+                    <div class="principle-item">
+                        <strong>默认匿名</strong>
+                        <p>咨询师默认只能看到匿名风险信息，身份查看需要授权。</p>
+                    </div>
+
+                    <div class="principle-item">
+                        <strong>可追溯审计</strong>
+                        <p>所有身份查看、AI 预警和人工干预操作都应留下日志。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>联系心理咨询中心</h3>
+                <p class="card-desc">
+                    如果你正在经历明显的情绪困扰，建议优先联系学校心理咨询中心或身边可信任的人。
+                </p>
+
+                <div class="contact-box">
+                    <p><strong>心理咨询中心：</strong>校园心理健康服务中心</p>
+                    <p><strong>办公时间：</strong>周一至周五 09:00 - 17:00</p>
+                    <p><strong>联系电话：</strong>000-0000-0000</p>
+                    <p><strong>邮箱：</strong>support@example.edu</p>
+                    <p><strong>地址：</strong>学生服务中心 2 楼</p>
+                </div>
+
+                <button class="primary-action" onclick="alert('演示版：这里以后可以连接预约咨询入口。')">
+                    预约心理咨询
+                </button>
+            </div>
+
+        </section>
+
+        <section class="dashboard-card">
+            <h3>快速留言</h3>
+            <p class="card-desc">
+                第一版演示中，留言表单不会真正发送，只用于展示未来功能入口。
+            </p>
+
+            <form class="contact-form" onsubmit="alert('演示版：留言已提交。真实系统中这里会发送到咨询中心。'); return false;">
+                <div>
+                    <label>你的身份</label>
+                    <select>
+                        <option>学生</option>
+                        <option>心理咨询师</option>
+                        <option>管理员</option>
+                        <option>其他访客</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>联系方式</label>
+                    <input type="text" placeholder="邮箱或电话">
+                </div>
+
+                <div class="full-row">
+                    <label>留言内容</label>
+                    <textarea placeholder="请简单描述你想咨询或反馈的问题"></textarea>
+                </div>
+
+                <div class="full-row">
+                    <button type="submit">提交留言</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+</html>
